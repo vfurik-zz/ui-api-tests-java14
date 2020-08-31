@@ -1,0 +1,115 @@
+plugins {
+    id 'java'
+    id "io.qameta.allure" version "2.8.1"
+}
+
+ext {
+    selenide = '5.13.1'
+    allure = '2.13.5'
+    restAssured = '4.3.1'
+    junit = '5.6.2'
+    jackson = '2.11.2'
+    javaOwner = '1.0.12'
+    assertJ = '3.16.1'
+    slf4j = '2.0.0-alpha1'
+    ashot = '1.5.4'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+allure {
+    configuration = "implementation"
+    aspectjweaver = true
+    allureJavaVersion = "2.13.5"
+    aspectjVersion = '1.9.6'
+    version = "${allure}"
+    useJUnit5 {
+        version = "${allure}"
+    }
+}
+
+dependencies {
+    implementation(
+            "com.codeborne:selenide:${selenide}",
+            "io.qameta.allure:allure-selenide:${allure}",
+            "io.rest-assured:rest-assured:${restAssured}",
+            "io.qameta.allure:allure-rest-assured:${allure}",
+            "io.qameta.allure:allure-junit5:${allure}",
+            "com.fasterxml.jackson.core:jackson-databind:${jackson}",
+            "org.aeonbits.owner:owner:${javaOwner}",
+            "org.slf4j:slf4j-jdk14:${slf4j}",
+            "ru.yandex.qatools.ashot:ashot:${ashot}",
+            "org.junit.jupiter:junit-jupiter-api:${junit}"
+    )
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-engine:${junit}",
+            "org.junit.jupiter:junit-jupiter-params:${junit}",
+            "org.assertj:assertj-core:${assertJ}"
+    )
+}
+
+compileJava {
+    sourceCompatibility = 14
+    targetCompatibility = 14
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.compilerArgs += '--enable-preview'
+}
+
+task copyConfig(type: Copy) {
+    from "src/main/resources/categories.json"
+    into "build/allure-results"
+}
+
+task initEnvProperties(type: JavaExec) {
+    group = "Execution"
+    description = "Allure properties initialization"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.test.core.utils.report.ReportEnvGenerating"
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+}
+
+tasks.withType(Test) {
+    testTask ->
+        jvmArgs += '--enable-preview'
+        jvmArgs += '-XX:+ShowCodeDetailsInExceptionMessages'
+        testTask.reports.junitXml.enabled = true
+        testTask.reports.html.enabled = false
+        testTask.testLogging.showStackTraces = true
+        testTask.testLogging.exceptionFormat = 'full'
+        testTask.testLogging.showStandardStreams = true
+        testTask.systemProperties(
+                'config': System.properties['config'],
+                'env': System.properties['env'],
+                'allure.link.issue.pattern': 'https://${}.atlassian.net/browse/{}',
+                'allure.link.tms.pattern': 'https://${}.atlassian.net/browse/{}')
+        testTask.outputs.upToDateWhen { false }
+        testTask.ignoreFailures = true
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+        testTask.finalizedBy copyConfig, initEnvProperties
+}
+
+task ui(type: Test) {
+    useJUnitPlatform {
+        includeTags 'ui'
+    }
+}
+
+task api(type: Test) {
+    useJUnitPlatform {
+        includeTags 'api'
+    }
+}

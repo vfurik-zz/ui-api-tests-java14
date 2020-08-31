@@ -1,0 +1,4 @@
+git
+allure-jenkins-plugin
+extensible-choice-parameter
+build-name-setter

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Passed tests",
+    "matchedStatuses": [
+      "passed"
+    ]
+  },
+  {
+    "name": "Skipped tests",
+    "matchedStatuses": [
+      "skipped"
+    ]
+  },
+  {
+    "name": "Incorrect API response code",
+    "matchedStatuses": [
+      "broken",
+      "failed"
+    ],
+    "messageRegex": ".*Expected status code <.*> but was <.*>.*"
+  },
+  {
+    "name": "Unexpected API response body",
+    "matchedStatuses": [
+      "broken",
+      "failed"
+    ],
+    "messageRegex": ".*Unrecognized field.*not marked as ignorable.*"
+  },
+  {
+    "name": "Web element was not loaded",
+    "matchedStatuses": [
+      "broken",
+      "failed"
+    ],
+    "messageRegex": ".*Element not found.*"
+  },
+  {
+    "name": "Design errors",
+    "matchedStatuses": [
+      "broken",
+      "failed"
+    ],
+    "messageRegex": ".*Expected and actual screenshots.*"
+  }
+]
