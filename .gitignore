@@ -1,0 +1,19 @@
+**/.idea/
+**/build/
+**/out/
+**/gradle/
+**/.allure/
+**/allure-results/
+.gradle/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### infrastructure ###
+**/selenoid/video/
+**/selenoid/logs
+**/jenkins/jenkins
+**/actual_screenshot/*[.png,.gif]

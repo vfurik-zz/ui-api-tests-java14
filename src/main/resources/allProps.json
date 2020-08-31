@@ -1,0 +1,46 @@
+{
+  "configs": [
+    {
+      "config_name": "CHROME_FULL_HD",
+      "browser_name": "chrome",
+      "browser_version": "84.0",
+      "resolution": "FULL_HD",
+      "run_in_selenoid": true
+    },
+    {
+      "config_name": "CHROME_HD",
+      "browser_name": "chrome",
+      "browser_version": "84.0",
+      "resolution": "HD",
+      "run_in_selenoid": true
+    },
+    {
+      "config_name": "FIREFOX_FULL_HD",
+      "browser_name": "firefox",
+      "browser_version": "79.0",
+      "resolution": "FULL_HD",
+      "run_in_selenoid": true
+    },
+    {
+      "config_name": "IPAD_RESOLUTION",
+      "browser_name": "chrome",
+      "browser_version": "84.0",
+      "resolution": "IPAD",
+      "run_in_selenoid": true
+    },
+    {
+      "config_name": "MOBILE_RESOLUTION",
+      "browser_name": "chrome",
+      "browser_version": "84.0",
+      "resolution": "MOBILE",
+      "run_in_selenoid": true
+    },
+    {
+      "config_name": "LOCAL",
+      "browser_name": "chrome",
+      "browser_version": "84.0",
+      "resolution": "FULL_HD",
+      "run_in_selenoid": false
+    }
+  ]
+}
