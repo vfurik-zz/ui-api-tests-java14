@@ -2,10 +2,12 @@ package com.test.core.utils.extension;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import com.test.ui.config.RunConfig;
 import com.test.ui.utils.AllureUtils;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.extension.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
@@ -25,16 +27,21 @@ public class CustomWatcher implements TestWatcher, AfterTestExecutionCallback,
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        String sessionId = ((RemoteWebDriver) WebDriverRunner.getWebDriver()).getSessionId().toString();
-        AllureUtils.attachVideoLink(sessionId, context.getDisplayName());
+        if (RunConfig.config.runInSelenoid()) {
+            String sessionId = ((RemoteWebDriver) ((EventFiringWebDriver) WebDriverRunner.getWebDriver()).getWrappedDriver()).getSessionId().toString();
+            AllureUtils.attachVideoLink(sessionId, context.getDisplayName());
+            AllureUtils.attachBrowserLog(sessionId, context.getDisplayName());
+        }
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        String sessionId = ((RemoteWebDriver) WebDriverRunner.getWebDriver()).getSessionId().toString();
-        AllureUtils.attachVideoLink(sessionId, context.getDisplayName());
+        if (RunConfig.config.runInSelenoid()) {
+            String sessionId = ((RemoteWebDriver) ((EventFiringWebDriver) WebDriverRunner.getWebDriver()).getWrappedDriver()).getSessionId().toString();
+            AllureUtils.attachVideoLink(sessionId, context.getDisplayName());
+            AllureUtils.attachBrowserLog(sessionId, context.getDisplayName());
+        }
     }
-
 
     @Override
     public void afterAll(ExtensionContext context) {

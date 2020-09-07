@@ -36,6 +36,10 @@ public class PropertyController {
         return propertyConfig.videoUrl();
     }
 
+    public String getSelenoidLogPath() {
+        return propertyConfig.logPath();
+    }
+
     public Config getConfig(ConfigName configName) {
         return this.allPropsResponse.configs()
                 .stream()
