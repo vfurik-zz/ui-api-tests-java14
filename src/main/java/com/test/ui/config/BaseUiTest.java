@@ -2,7 +2,9 @@ package com.test.ui.config;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.junit5.TextReportExtension;
+import com.test.core.utils.extension.CustomEventListener;
 import com.test.core.utils.extension.CustomWatcher;
 import com.test.core.utils.extension.html_report.CustomHtmlReport;
 import com.test.ui.page.HomePage;
@@ -18,7 +20,7 @@ public abstract class BaseUiTest {
     static {
         Configuration.browserPosition = "0x0";
         Configuration.baseUrl = propController.getUiUrl();
-        Configuration.timeout = 12000;
+        Configuration.timeout = 6000;
         Configuration.screenshots = true;
         Configuration.savePageSource = true;
         Configuration.pageLoadStrategy = "normal";
@@ -33,6 +35,7 @@ public abstract class BaseUiTest {
         if (config.runInSelenoid()) {
             Configuration.remote = propController.getRemoteSelenoid();
         }
+        WebDriverRunner.addListener(new CustomEventListener());
     }
 
     @Step

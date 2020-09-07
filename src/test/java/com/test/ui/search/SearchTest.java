@@ -17,7 +17,10 @@ public class SearchTest extends BaseUiTest {
     @Test
     void searchSelenide() {
         openHomePage()
-                .searchBy("Selenide");
+                .searchBy("Selenide")
+                .searchResultHasSize(7)
+                .firstResultIs("Selenide: concise UI tests in Java")
+                .clearSearch();
     }
 
     @Story("Test should fail")
@@ -26,7 +29,7 @@ public class SearchTest extends BaseUiTest {
     void failedTest() {
         openHomePage()
                 .searchBy("Selenide");
-        $(".test_class").shouldBe(Condition.visible);
+        $("[data-hveid='CAYQAA'] h2").shouldBe(Condition.visible);
     }
 
 }
