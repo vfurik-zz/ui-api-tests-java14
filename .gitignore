@@ -1,7 +1,6 @@
 **/.idea/
 **/build/
 **/out/
-**/gradle/
 **/.allure/
 **/allure-results/
 .gradle/
@@ -15,5 +14,12 @@
 ### infrastructure ###
 **/selenoid/video/
 **/selenoid/logs
-**/jenkins/jenkins
+
+jenkins/jenkins/updates/default.json
+/jenkins/jenkins/*
+!jenkins/jenkins/updates/
+!jenkins/jenkins/jobs/
+jenkins/jenkins/jobs/UI_API/*
+!jenkins/jenkins/jobs/UI_API/config.xml
+
 **/actual_screenshot/*[.png,.gif]

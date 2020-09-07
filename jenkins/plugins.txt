@@ -2,3 +2,6 @@ git
 allure-jenkins-plugin
 extensible-choice-parameter
 build-name-setter
+pipeline-model-definition
+gradle
+ws-cleanup
