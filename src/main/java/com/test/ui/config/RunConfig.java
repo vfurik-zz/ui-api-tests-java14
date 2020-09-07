@@ -18,7 +18,7 @@ public class RunConfig {
         String configNameEnv = System.getProperty("config");
         try {
             var configName = StringUtils.isNoneEmpty(configNameEnv) ?
-                    ConfigName.valueOf(configNameEnv) : ConfigName.CHROME_FULL_HD;
+                    ConfigName.valueOf(configNameEnv) : ConfigName.IPAD_RESOLUTION;
             config = propController.getConfig(configName);
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format("Incorrect test config: %s", configNameEnv));
