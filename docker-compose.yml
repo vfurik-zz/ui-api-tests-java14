@@ -34,15 +34,15 @@ services:
     volumes:
       - ${PWD}/build/allure-results:/app/allure-results
       - ${PWD}/build/reports/allure-reports:/app/default-reports
-#  jenkins:
-#    image: "custom_jenkins:latest"
-#    container_name: "jenkins"
-#    volumes:
-#      - ${PWD}/jenkins:/var/jenkins_home
-#      - "/var/run/docker.sock:/var/run/docker.sock"
-#    environment:
-#      JENKINS_HOST_HOME: "/home/sysadm/jenkins_home"
-#    ports:
-#      - 8088:8080
-#      - 5000:5000
-#      - 50000:50000
+  jenkins:
+    image: "custom_jenkins:latest"
+    container_name: "jenkins"
+    volumes:
+      - ${PWD}/jenkins/jenkins:/var/jenkins_home
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      JENKINS_HOST_HOME: "/home/sysadm/jenkins_home"
+    ports:
+      - 8088:8080
+      - 5000:5000
+      - 50000:50000
