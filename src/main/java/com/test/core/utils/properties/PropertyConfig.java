@@ -15,4 +15,7 @@ public interface PropertyConfig extends Config {
 
     @Key("video.path")
     String videoUrl();
+
+    @Key("log.path")
+    String logPath();
 }
