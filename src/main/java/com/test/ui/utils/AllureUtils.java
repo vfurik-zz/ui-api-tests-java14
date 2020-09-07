@@ -1,6 +1,5 @@
 package com.test.ui.utils;
 
-import com.test.core.utils.properties.PropertyController;
 import io.qameta.allure.Attachment;
 
 import javax.imageio.ImageIO;
@@ -37,6 +36,12 @@ public class AllureUtils {
     @Attachment(value = "Log for test", type = "text/html")
     public static String attachLog(String text) {
         return text;
+    }
+
+    @Attachment(value = "Browser log", type = "text/html")
+    public static String attachBrowserLog(String sessionId, String name) {
+        String logUrl = String.format(propController.getSelenoidLogPath(), sessionId);
+        return String.format("<html><p><a href=\"%s\">%s</a></p></html>", logUrl, name);
     }
 
     private static byte[] toByteArrayAutoClosable(BufferedImage image) {

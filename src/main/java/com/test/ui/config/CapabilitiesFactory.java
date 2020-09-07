@@ -27,6 +27,7 @@ public class CapabilitiesFactory {
         var browserCap = new DesiredCapabilities();
         browserCap.setCapability("enableVNC", true);
         browserCap.setCapability("enableVideo", true);
+        browserCap.setCapability("enableLog", true);
 
         var options = new ChromeOptions();
         options.addArguments("disable-popup-blocking");
