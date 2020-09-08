@@ -11,8 +11,8 @@ services:
       - "$PWD/selenoid/logs:/opt/selenoid/logs"
     environment:
       - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/selenoid/video
-    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir",
-              "/opt/selenoid/logs", "-limit", "12", "-timeout", "60s"]
+    command: [ "-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir",
+               "/opt/selenoid/logs", "-limit", "12", "-timeout", "60s" ]
     ports:
       - "4444:4444"
   selenoid-ui:
@@ -23,7 +23,7 @@ services:
       - selenoid
     ports:
       - "8080:8080"
-    command: ["--selenoid-uri","http://selenoid:4444"]
+    command: [ "--selenoid-uri","http://selenoid:4444" ]
   allure:
     image: "frankescobar/allure-docker-service"
     environment:
@@ -34,6 +34,13 @@ services:
     volumes:
       - ${PWD}/build/allure-results:/app/allure-results
       - ${PWD}/build/reports/allure-reports:/app/default-reports
+  allure-ui:
+    image: "frankescobar/allure-docker-service-ui"
+    environment:
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+    ports:
+      - "5252:5252"
   jenkins:
     image: "custom_jenkins:latest"
     container_name: "jenkins"

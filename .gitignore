@@ -23,3 +23,4 @@ jenkins/jenkins/jobs/UI_API/*
 !jenkins/jenkins/jobs/UI_API/config.xml
 
 **/actual_screenshot/*[.png,.gif]
+allure-logs.log
